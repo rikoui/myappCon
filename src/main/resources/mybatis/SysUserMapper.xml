@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.app.mapper.SysUserMapper">
+
+    <resultMap type="SysUser" id="SysUserResult">
+        <id     property="userId"       column="user_id" />
+        <result property="userCode"     column="user_code" />
+        <result property="userName"     column="user_name" />
+        <result property="passWord"     column="pass_word" />
+        <result property="userType"     column="user_type" />
+    </resultMap>
+
+    <insert id="insertUser" parameterType="SysUser" useGeneratedKeys="true" keyProperty="userId">
+        insert into sys_user(
+        <if test="userId != null and userId != ''">user_id,</if>
+        <if test="userCode != null and userCode != ''">user_code,</if>
+        <if test="userName != null and userName != ''">user_name,</if>
+        <if test="passWord != null and passWord != ''">pass_word,</if>
+        <if test="userType != null and userType != ''">user_type</if>
+        ) values (
+        <if test="userId != null and userId != ''">userId,</if>
+        <if test="userCode != null and userCode != ''">#{userCode},</if>
+        <if test="userName != null and userName != ''">#{userName},</if>
+        <if test="passWord != null and passWord != ''">#{passWord},</if>
+        <if test="userType != null and userType != ''">#{userType}</if>
+        )
+    </insert>
+
+    <select id="findSysUser" parameterType="SysUser" resultMap="SysUserResult">
+        select * from sys_user where user_code = #{userCode} and pass_word = #{passWord} limit 1
+    </select>
+
+    <update id="updateUser" parameterType="SysUser">
+        update sys_user
+        <set>
+            <if test="userCode != null and userCode != ''">user_code = #{userCode},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="passWord != null and passWord != ''">pass_word = #{passWord},</if>
+            <if test="userType != null and userType != ''">userType = #{user_type}</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateUserStatus" parameterType="SysUser">
+ 		update sys_user set status = #{status} where user_id = #{userId}
+	</update>
+
+    <update id="updateUserAvatar" parameterType="SysUser">
+ 		update sys_user set avatar = #{avatar} where user_name = #{userName}
+	</update>
+
+    <update id="resetUserPwd" parameterType="SysUser">
+ 		update sys_user set password = #{password} where user_name = #{userName}
+	</update>
+
+    <delete id="deleteUserById" parameterType="Long">
+ 		delete from sys_user where user_id = #{userId}
+ 	</delete>
+
+</mapper>

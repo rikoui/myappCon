@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+server:
+  port: 8080
+
+# MyBatis\u914D\u7F6E
+mybatis:
+  # \u641C\u7D22\u6307\u5B9A\u5305\u522B\u540D
+  typeAliasesPackage: com.pers.app.domain
+  # \u914D\u7F6Emapper\u7684\u626B\u63CF\uFF0C\u627E\u5230\u6240\u6709\u7684mapper.xml\u6620\u5C04\u6587\u4EF6
+  mapperLocations: classpath*:mybatis/**/*Mapper.xml
+  # \u52A0\u8F7D\u5168\u5C40\u7684\u914D\u7F6E\u6587\u4EF6
+  #configLocation: classpath:mybatis/mybatis-config.xml
